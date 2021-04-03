@@ -57,7 +57,7 @@ void SmithNormalFormDiag(std::vector<std::vector<int64_t>>* S, std::vector<std::
       int64_t s_old = (*S)[best_i][index];
       int64_t s_new = (*S)[i][index];
       if (s_new != 0) {
-        if (s_old == 0 || std::abs(s_new) < std::abs(s_old)) {
+        if (s_old == 0 || std::abs(double(s_new)) < std::abs(double(s_old))) {
           best_i = i;
         }
       }
@@ -355,7 +355,7 @@ IntConstraintsTransform SolveLinearEquations(const IntConstraints& system_to_sol
     } else {
       // The diagonal element is non-zero. A solution exists only if the diagonal element
       // is a divisor of the Ub[j]
-      new_relation = (floormod(Uy[j], std::abs(S[j][j])) == 0);
+      new_relation = (floormod(Uy[j], std::abs(double(S[j][j]))) == 0);
     }
     new_relation = analyzer_problem.Simplify(new_relation);
     if (tir::is_const_int(new_relation, 0)) {

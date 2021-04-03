@@ -616,7 +616,7 @@ PrimExpr abs(PrimExpr x, Span span) {
     using tir::IntImmNode;
     const IntImmNode* px = x.as<IntImmNode>();
     if (px) {
-      return IntImm(x.dtype(), std::abs(px->value), px->span);
+      return IntImm(x.dtype(), std::abs(double(px->value)), px->span);
     }
     return tir::Select(x >= make_zero(x.dtype()), x, -x, span);
   } else if (x.dtype().is_float()) {

@@ -26,12 +26,13 @@
 #include <tvm/tir/builtin.h>
 #include <tvm/tir/expr_functor.h>
 #include <tvm/tir/op.h>
-
 #include <limits>
 #include <unordered_map>
 #include <utility>
 
+
 #include "pattern_match.h"
+#include <cstdlib>
 
 namespace tvm {
 namespace arith {
@@ -169,7 +170,7 @@ class ModularSetAnalyzer::Impl : public ExprFunctor<ModularSetAnalyzer::Entry(co
     if (a.coeff % val == 0) {
       if (a.base == 0) {
         // a c x  / c -> a x
-        return Entry(std::abs(a.coeff / val), 0);
+        return Entry(std::abs(float(a.coeff / val)), 0);
       }
       // positive division have a clear rounding mode.
       // Only handle case where we clearly know we need to round down.

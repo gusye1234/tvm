@@ -691,9 +691,9 @@ inline Tensor strided_slice(const Tensor& x, const Array<PrimExpr>& begin,
     int64_t begin_i = index_canonicalization(begin_vec[i]);
     int64_t end_i = index_canonicalization(end_vec[i]);
 
-    int interval = std::abs(end_i - begin_i);
-    int slice_size =
-        static_cast<int>((interval + std::abs(stride_vec[i]) - 1) / std::abs(stride_vec[i]));
+    int interval = std::abs(double(end_i - begin_i));
+    int slice_size = static_cast<int>((interval + std::abs(double(stride_vec[i]) - 1)) /
+                                      std::abs(double(stride_vec[i])));
     ICHECK(stride_vec[i] < 0 ? (end_i <= begin_i) : (begin_i <= end_i))
         << ": Input [Begin=" << begin_vec[i] << ", End=" << end_vec[i]
         << "] is invalid for axis=" << i;
