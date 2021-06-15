@@ -27,7 +27,7 @@ endif
 ENABLE_TVM_PLATFORM_ABORT_BACKTRACE ?= 1
 
 DMLC_CORE=${TVM_ROOT}/3rdparty/dmlc-core
-PKG_COMPILE_OPTS = -g -Wall -O2 -fPIC
+PKG_COMPILE_OPTS = -g -Wall -O2 -fPIC -undefined dynamic_lookup
 PKG_CXXFLAGS = ${PKG_COMPILE_OPTS} -std=c++14 \
 	-I${TVM_ROOT}/include \
 	-I${DMLC_CORE}/include \
